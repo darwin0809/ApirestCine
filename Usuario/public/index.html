@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Gestión de Usuarios</title>
+  <style>
+    body { font-family: Arial; margin: 2em; }
+    input, button { margin: 0.5em; padding: 0.5em; }
+    .usuario { border: 1px solid #ccc; padding: 1em; margin-bottom: 1em; }
+  </style>
+</head>
+<body>
+
+  <h1>Usuarios</h1>
+
+  <div>
+    <h2>Crear nuevo usuario</h2>
+    <input id="nombre" placeholder="Nombre completo">
+    <input id="email" placeholder="Correo">
+    <input id="password" placeholder="Contraseña">
+    <input id="rol" placeholder="Rol (cliente/admin)">
+    <input id="direccion" placeholder="Dirección">
+    <input id="telefono" placeholder="Teléfono">
+    <button onclick="crearUsuario()">Crear</button>
+  </div>
+
+  <h2>Listado de usuarios</h2>
+  <div id="usuarios"></div>
+
+  <script src="script/main.js"></script>
+</body>
+</html>
