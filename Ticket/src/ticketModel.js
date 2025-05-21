@@ -8,11 +8,11 @@ const connection = mysql.createPool({
   port: 3306
 });
 
-async function crearTicket(idUsuario, idFuncion, idSala, asientos, total) {
-  const asientosStr = asientos.join(',');
+async function crearTicket(idUsuario, idFuncion, asientos, total) {
+  const asientosStr = Array.isArray(asientos) ? asientos.join(',') : asientos;
   const [result] = await connection.query(
-    'INSERT INTO tickets (idUsuario, idFuncion, idSala, asientos, total) VALUES (?, ?, ?, ?, ?)',
-    [idUsuario, idFuncion, idSala, asientosStr, total]
+    'INSERT INTO tickets (idUsuario, idFuncion, asientos, total) VALUES (?, ?, ?, ?)',
+    [idUsuario, idFuncion, asientosStr, total]
   );
   return result;
 }
@@ -25,7 +25,19 @@ async function obtenerTicketsPorUsuario(idUsuario) {
   return result;
 }
 
+async function eliminarTicket(id) {
+  const [result] = await connection.query('DELETE FROM tickets WHERE idTicket = ?', [id]);
+  return result;
+}
+
+async function obtenerTicketPorId(id) {
+  const [result] = await connection.query('SELECT * FROM tickets WHERE idTicket = ?', [id]);
+  return result[0];
+}
+
 module.exports = {
   crearTicket,
-  obtenerTicketsPorUsuario
+  obtenerTicketsPorUsuario,
+  eliminarTicket,
+  obtenerTicketPorId
 };
